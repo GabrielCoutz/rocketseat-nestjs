@@ -1,9 +1,9 @@
 import 'dotenv/config'
 
+import { PrismaClient } from '../generated/prisma/client'
 import { randomUUID } from 'node:crypto'
 import { execSync } from 'node:child_process'
 import { PrismaPg } from '@prisma/adapter-pg'
-import { PrismaClient } from '../generated/prisma/client'
 
 let prisma: PrismaClient
 
@@ -25,18 +25,23 @@ beforeAll(async () => {
   const databaseURL = generateUniqueDatabaseURL(schemaId)
 
   process.env.DATABASE_URL = databaseURL
-  execSync('yarn prisma migrate deploy')
-
   prisma = new PrismaClient({
-    adapter: new PrismaPg({ connectionString: databaseURL }),
+    log: ['query', 'error', 'warn'],
+    adapter: new PrismaPg({
+      connectionString: databaseURL,
+    }),
+  })
+
+  execSync(`yarn prisma migrate deploy`, {
+    env: {
+      ...process.env,
+      DATABASE_URL: databaseURL,
+    },
+    stdio: 'inherit',
   })
 })
 
 afterAll(async () => {
-  if (prisma) {
-    await prisma.$executeRawUnsafe(
-      `DROP SCHEMA IF EXISTS "${schemaId}" CASCADE`,
-    )
-    await prisma.$disconnect()
-  }
+  await prisma.$executeRawUnsafe(`DROP SCHEMA IF EXISTS "${schemaId}" CASCADE`)
+  await prisma.$disconnect()
 })
