@@ -8,7 +8,7 @@ import {
 import { PrismaService } from '@/prisma/prisma.service'
 import * as bcrypt from 'bcryptjs'
 import z from 'zod'
-import { ZodValidationPipe } from '@/pipes/zod-validation.pipe'
+import { ZodValidationPipe } from '@/infra/pipes/zod-validation.pipe'
 
 const createAccountBodySchema = z.object({
   name: z.string().min(3, 'Name must be at least 3 characters long'),
