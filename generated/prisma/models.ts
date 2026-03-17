@@ -11,4 +11,6 @@
 export type * from './models/User'
 export type * from './models/Question'
 export type * from './models/Answer'
+export type * from './models/Comment'
+export type * from './models/Attachment'
 export type * from './commonInputTypes'

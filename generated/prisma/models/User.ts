@@ -184,6 +184,7 @@ export type UserWhereInput = {
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   questions?: Prisma.QuestionListRelationFilter
   answers?: Prisma.AnswerListRelationFilter
+  Comment?: Prisma.CommentListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -194,6 +195,7 @@ export type UserOrderByWithRelationInput = {
   role?: Prisma.SortOrder
   questions?: Prisma.QuestionOrderByRelationAggregateInput
   answers?: Prisma.AnswerOrderByRelationAggregateInput
+  Comment?: Prisma.CommentOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -207,6 +209,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   questions?: Prisma.QuestionListRelationFilter
   answers?: Prisma.AnswerListRelationFilter
+  Comment?: Prisma.CommentListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -239,6 +242,7 @@ export type UserCreateInput = {
   role?: $Enums.UserRole
   questions?: Prisma.QuestionCreateNestedManyWithoutAuthorInput
   answers?: Prisma.AnswerCreateNestedManyWithoutAuthorInput
+  Comment?: Prisma.CommentCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -249,6 +253,7 @@ export type UserUncheckedCreateInput = {
   role?: $Enums.UserRole
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutAuthorInput
   answers?: Prisma.AnswerUncheckedCreateNestedManyWithoutAuthorInput
+  Comment?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUpdateInput = {
@@ -259,6 +264,7 @@ export type UserUpdateInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   questions?: Prisma.QuestionUpdateManyWithoutAuthorNestedInput
   answers?: Prisma.AnswerUpdateManyWithoutAuthorNestedInput
+  Comment?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -269,6 +275,7 @@ export type UserUncheckedUpdateInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutAuthorNestedInput
   answers?: Prisma.AnswerUncheckedUpdateManyWithoutAuthorNestedInput
+  Comment?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -360,6 +367,20 @@ export type UserUpdateOneRequiredWithoutAnswersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAnswersInput, Prisma.UserUpdateWithoutAnswersInput>, Prisma.UserUncheckedUpdateWithoutAnswersInput>
 }
 
+export type UserCreateNestedOneWithoutCommentInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCommentInput, Prisma.UserUncheckedCreateWithoutCommentInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCommentInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCommentNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCommentInput, Prisma.UserUncheckedCreateWithoutCommentInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCommentInput
+  upsert?: Prisma.UserUpsertWithoutCommentInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCommentInput, Prisma.UserUpdateWithoutCommentInput>, Prisma.UserUncheckedUpdateWithoutCommentInput>
+}
+
 export type UserCreateWithoutQuestionsInput = {
   id?: string
   name: string
@@ -367,6 +388,7 @@ export type UserCreateWithoutQuestionsInput = {
   password: string
   role?: $Enums.UserRole
   answers?: Prisma.AnswerCreateNestedManyWithoutAuthorInput
+  Comment?: Prisma.CommentCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutQuestionsInput = {
@@ -376,6 +398,7 @@ export type UserUncheckedCreateWithoutQuestionsInput = {
   password: string
   role?: $Enums.UserRole
   answers?: Prisma.AnswerUncheckedCreateNestedManyWithoutAuthorInput
+  Comment?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutQuestionsInput = {
@@ -401,6 +424,7 @@ export type UserUpdateWithoutQuestionsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   answers?: Prisma.AnswerUpdateManyWithoutAuthorNestedInput
+  Comment?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutQuestionsInput = {
@@ -410,6 +434,7 @@ export type UserUncheckedUpdateWithoutQuestionsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   answers?: Prisma.AnswerUncheckedUpdateManyWithoutAuthorNestedInput
+  Comment?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateWithoutAnswersInput = {
@@ -419,6 +444,7 @@ export type UserCreateWithoutAnswersInput = {
   password: string
   role?: $Enums.UserRole
   questions?: Prisma.QuestionCreateNestedManyWithoutAuthorInput
+  Comment?: Prisma.CommentCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutAnswersInput = {
@@ -428,6 +454,7 @@ export type UserUncheckedCreateWithoutAnswersInput = {
   password: string
   role?: $Enums.UserRole
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutAuthorInput
+  Comment?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutAnswersInput = {
@@ -453,6 +480,7 @@ export type UserUpdateWithoutAnswersInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   questions?: Prisma.QuestionUpdateManyWithoutAuthorNestedInput
+  Comment?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAnswersInput = {
@@ -462,6 +490,63 @@ export type UserUncheckedUpdateWithoutAnswersInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutAuthorNestedInput
+  Comment?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
+}
+
+export type UserCreateWithoutCommentInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  role?: $Enums.UserRole
+  questions?: Prisma.QuestionCreateNestedManyWithoutAuthorInput
+  answers?: Prisma.AnswerCreateNestedManyWithoutAuthorInput
+}
+
+export type UserUncheckedCreateWithoutCommentInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  role?: $Enums.UserRole
+  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutAuthorInput
+  answers?: Prisma.AnswerUncheckedCreateNestedManyWithoutAuthorInput
+}
+
+export type UserCreateOrConnectWithoutCommentInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCommentInput, Prisma.UserUncheckedCreateWithoutCommentInput>
+}
+
+export type UserUpsertWithoutCommentInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCommentInput, Prisma.UserUncheckedUpdateWithoutCommentInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCommentInput, Prisma.UserUncheckedCreateWithoutCommentInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCommentInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCommentInput, Prisma.UserUncheckedUpdateWithoutCommentInput>
+}
+
+export type UserUpdateWithoutCommentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  questions?: Prisma.QuestionUpdateManyWithoutAuthorNestedInput
+  answers?: Prisma.AnswerUpdateManyWithoutAuthorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCommentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  questions?: Prisma.QuestionUncheckedUpdateManyWithoutAuthorNestedInput
+  answers?: Prisma.AnswerUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 
@@ -472,11 +557,13 @@ export type UserUncheckedUpdateWithoutAnswersInput = {
 export type UserCountOutputType = {
   questions: number
   answers: number
+  Comment: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   questions?: boolean | UserCountOutputTypeCountQuestionsArgs
   answers?: boolean | UserCountOutputTypeCountAnswersArgs
+  Comment?: boolean | UserCountOutputTypeCountCommentArgs
 }
 
 /**
@@ -503,6 +590,13 @@ export type UserCountOutputTypeCountAnswersArgs<ExtArgs extends runtime.Types.Ex
   where?: Prisma.AnswerWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCommentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CommentWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -512,6 +606,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   role?: boolean
   questions?: boolean | Prisma.User$questionsArgs<ExtArgs>
   answers?: boolean | Prisma.User$answersArgs<ExtArgs>
+  Comment?: boolean | Prisma.User$CommentArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -543,6 +638,7 @@ export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   questions?: boolean | Prisma.User$questionsArgs<ExtArgs>
   answers?: boolean | Prisma.User$answersArgs<ExtArgs>
+  Comment?: boolean | Prisma.User$CommentArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -553,6 +649,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     questions: Prisma.$QuestionPayload<ExtArgs>[]
     answers: Prisma.$AnswerPayload<ExtArgs>[]
+    Comment: Prisma.$CommentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -956,6 +1053,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   questions<T extends Prisma.User$questionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$questionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   answers<T extends Prisma.User$answersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$answersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  Comment<T extends Prisma.User$CommentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$CommentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1428,6 +1526,30 @@ export type User$answersArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.AnswerScalarFieldEnum | Prisma.AnswerScalarFieldEnum[]
+}
+
+/**
+ * User.Comment
+ */
+export type User$CommentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Comment
+   */
+  select?: Prisma.CommentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Comment
+   */
+  omit?: Prisma.CommentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CommentInclude<ExtArgs> | null
+  where?: Prisma.CommentWhereInput
+  orderBy?: Prisma.CommentOrderByWithRelationInput | Prisma.CommentOrderByWithRelationInput[]
+  cursor?: Prisma.CommentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CommentScalarFieldEnum | Prisma.CommentScalarFieldEnum[]
 }
 
 /**
