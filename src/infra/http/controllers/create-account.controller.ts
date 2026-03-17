@@ -1,14 +1,16 @@
 import {
+  BadRequestException,
   Body,
   ConflictException,
   Controller,
   Post,
   UsePipes,
 } from '@nestjs/common'
-import { PrismaService } from '@/infra/database/prisma/prisma.service'
-import * as bcrypt from 'bcryptjs'
+
 import z from 'zod'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation.pipe'
+import { RegisterStudentUseCase } from '@/domain/forum/application/use-cases/register-student'
+import { StudentAlreadyExistsError } from '@/domain/forum/application/use-cases/errors/student-already-exists-error'
 
 const createAccountBodySchema = z.object({
   name: z.string().min(3, 'Name must be at least 3 characters long'),
@@ -20,32 +22,28 @@ type CreateAccountBody = z.infer<typeof createAccountBodySchema>
 
 @Controller('/accounts')
 export class CreateAccountController {
-  constructor(private prisma: PrismaService) {}
+  constructor(private registerStudent: RegisterStudentUseCase) {}
 
   @Post()
   @UsePipes(new ZodValidationPipe(createAccountBodySchema))
   async handle(@Body() body: CreateAccountBody) {
     const { name, email, password } = body
 
-    const emailAlreadyInUse = await this.prisma.user.findUnique({
-      where: {
-        email,
-      },
+    const result = await this.registerStudent.execute({
+      name,
+      email,
+      password,
     })
 
-    if (emailAlreadyInUse) throw new ConflictException('Email already in use')
+    if (result.isLeft()) {
+      const error = result.value
 
-    const hashedPassword = await bcrypt.hash(password, 8)
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password: _, ...user } = await this.prisma.user.create({
-      data: {
-        name,
-        email,
-        password: hashedPassword,
-      },
-    })
-
-    return { user }
+      switch (error.constructor) {
+        case StudentAlreadyExistsError:
+          throw new ConflictException(error.message)
+        default:
+          throw new BadRequestException(error.message)
+      }
+    }
   }
 }
