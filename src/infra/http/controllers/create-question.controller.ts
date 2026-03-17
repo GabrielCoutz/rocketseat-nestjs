@@ -1,5 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common'
-import { AuthGuard } from '@nestjs/passport'
+import { Body, Controller, Post } from '@nestjs/common'
 import { CurrentUser } from '@/infra/auth/current-user.decorator'
 import { TokenSchema } from '@/infra/auth/jwt.strategy'
 
@@ -16,7 +15,6 @@ const createQuestionBodySchema = z.object({
 type CreateQuestionBodySchema = z.infer<typeof createQuestionBodySchema>
 
 @Controller('/questions')
-@UseGuards(AuthGuard('jwt'))
 export class CreateQuestionController {
   constructor(private createQuestion: CreateQuestionUseCase) {}
 
