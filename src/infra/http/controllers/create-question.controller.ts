@@ -4,8 +4,9 @@ import { CurrentUser } from '@/infra/auth/current-user.decorator'
 import { TokenSchema } from '@/infra/auth/jwt.strategy'
 
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation.pipe'
-import { PrismaService } from '@/infra/database/prisma/prisma.service'
+
 import z from 'zod'
+import { CreateQuestionUseCase } from '@/domain/forum/application/use-cases/create-question'
 
 const createQuestionBodySchema = z.object({
   title: z.string().min(3, 'Title must be at least 3 characters'),
@@ -17,7 +18,7 @@ type CreateQuestionBodySchema = z.infer<typeof createQuestionBodySchema>
 @Controller('/questions')
 @UseGuards(AuthGuard('jwt'))
 export class CreateQuestionController {
-  constructor(private prisma: PrismaService) {}
+  constructor(private createQuestion: CreateQuestionUseCase) {}
 
   @Post()
   async handle(
@@ -27,24 +28,13 @@ export class CreateQuestionController {
   ) {
     const { title, content } = body
 
-    const question = await this.prisma.question.create({
-      data: {
-        title,
-        content,
-        authorId: currentUser.sub,
-        slug: this.convertToSlug(title),
-      },
+    const question = await this.createQuestion.execute({
+      authorId: currentUser.sub,
+      title,
+      content,
+      attachmentsIds: [],
     })
 
     return { question }
-  }
-
-  private convertToSlug(title: string): string {
-    return title
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^\w\s-]/g, '')
-      .replace(/\s+/g, '-')
   }
 }
